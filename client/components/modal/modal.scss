@@ -1,0 +1,71 @@
+// T-top-bar
+.T-top-bar{
+    .icon{
+        font-size: 16px;
+        position: absolute;
+        padding-right: 0;
+        left: calc( 50% - 5px );
+        top: calc( 50% - 11px );
+        -webkit-transition: left 0.1s;
+        transition: left 0.1s;
+        &.active{
+            left: 5px;
+        }
+    }
+    &.bar.item-input-inset .item-input-wrapper input{
+        font-size: 14px;
+        line-height: 1;
+        padding-bottom: 2px;
+        color: #ef473a;
+        padding-left: 14px;
+    }
+}
+// list-small
+.list-small{
+    .list-divider-small{
+        padding-top:0;
+        min-height:22px;
+    }
+    .item-small{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+}
+// 列表索引
+.alpha_sidebar{
+    position: fixed;
+    top: 50%;
+    @include css3(transform,translateY(-45%));
+    right:  3px;
+    z-index: 100000;
+}
+.alpha_sidebar a{
+    display: block;
+    text-decoration: none;
+    color: #ef473a;
+    font-size: 12px;
+    margin-bottom: 0;
+    height: 15px;
+}
+.alpha_list{
+    padding-right: 22px;
+    padding-top: 0;
+    margin-bottom: 0;
+    .item{
+        border-right: 0;
+        padding: 8px 10px;
+        &:last-child{
+            background-image: none;
+        }
+    }
+    .item.item-divider{
+        padding: 0 10px;
+        min-height: 20px;
+        font-size: 12px;
+        background-image: none;
+        border: 0;
+        z-index: 3;
+        width: 100%;
+        top: 0;
+    }
+}

@@ -1,0 +1,29 @@
+<!--
+Create tabs with an icon and label, using the tabs-positive style.
+Each tab's child <ion-nav-view> directive will have its own
+navigation history that also transitions its views in and out.
+-->
+<ion-tabs class="tabs-icon-top tabs-color-active-assertive tabs-light" ng-class="{'tabs-item-hide': hideTabs}">
+
+  <!-- World Tab -->
+  <ion-tab title="世界时钟" icon-off="ion-ios-world-outline" icon-on="ion-ios-world" href="/">
+    <ion-nav-view name="tabs-world"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Alarm Tab -->
+  <ion-tab title="闹钟" icon-off="ion-ios-alarm-outline" icon-on="ion-ios-alarm" href="/alarm">
+    <ion-nav-view name="tabs-alarm"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Stopwatch Tab -->
+  <ion-tab title="秒表" icon-off="ion-ios-stopwatch-outline" icon-on="ion-ios-stopwatch" badge="1" badge-style="badge-assertive" href="/stopwatch">
+    <ion-nav-view name="tabs-stopwatch"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Timer Tab -->
+  <ion-tab title="计时器" icon-off="ion-ios-timer-outline" icon-on="ion-ios-timer" href="/timer">
+    <ion-nav-view name="tabs-timer"></ion-nav-view>
+  </ion-tab>
+
+
+</ion-tabs>

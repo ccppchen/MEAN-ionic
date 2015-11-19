@@ -1,0 +1,78 @@
+// $fa-font-path: "/bower_components/font-awesome/fonts";
+
+// @import 'font-awesome/scss/font-awesome';
+
+/**
+ * App-wide Styles
+ */
+@mixin css3($property, $value) {
+	@each $prefix in -webkit-, -moz-, -ms-, -o-, '' {
+		#{$prefix}#{$property}: $value;
+	}
+}
+.button-icon .icon:before, .button-icon.icon:before {
+    font-size: 24px;
+}
+@media all and (-webkit-min-device-pixel-ratio: 1.5) {
+	.list{
+		// padding-top: 0;
+		// .item:first-child{
+		// 	border-top: 0;
+		// }
+		.item{
+			border: none!important;
+			padding-bottom: 1px;
+			margin: 0px;
+			background-position:bottom;
+			background-size:100% 1px;
+			background-repeat:no-repeat;
+			background-image:linear-gradient(0deg, #b2b2b2, #b2b2b2 50%, transparent 50%);
+			-webkit-transition: all 250ms;
+			transition: height,min-height 250ms;
+		}
+	}
+	// 左侧有空隙item样式
+	.list-inset-left{
+		.item{
+		    background-size: calc( 100% - 10px ) 1px;
+		    background-position: bottom right;
+		    &:last-child{
+		        background-image: none;
+		    }
+		}
+	}
+}
+
+
+.go-top{
+	z-index: 3;
+	bottom: 60px;
+	right: 10px;
+	font-size: 14px;
+	background: #fff!important;
+	color: #BBB;
+	// border: 1px solid #CCC;
+	border-radius: 50%;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	min-width: 46px;
+	min-height: 46px;
+	line-height: 60px;
+	&.button.icon:before{
+		position: absolute;
+		top: -7px;
+		left: 17px;
+		font-size: 26px;
+	}
+}
+// Component styles are injected through grunt
+// injector
+@import 'alarm/alarm.scss';
+@import 'item/item.scss';
+@import 'stopwatch/stopwatch.scss';
+@import 'timer/timer.scss';
+@import 'world/world.scss';
+@import 'modal/modal.scss';
+@import 'tabs/tabs.scss';
+// endinjector

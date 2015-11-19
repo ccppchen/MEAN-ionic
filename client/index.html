@@ -1,0 +1,73 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <base href="/">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(client) app/vendor.css -->
+      <!-- bower:css -->
+      <link rel="stylesheet" href="bower_components/ionic/release/css/ionic.css" />
+      <link rel="stylesheet" href="bower_components/ionic-filter-bar/dist/ionic.filter.bar.css" />
+      <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css({.tmp,client}) app/app.css -->
+    <link rel="stylesheet" href="assets/styles/app.css">
+      <!-- injector:css -->
+      <!-- endinjector -->
+    <!-- endbuild -->
+  </head>
+  <body ng-app="fullstackApp" animation="no-animation"> <!-- slide-left-right-ios7 -->
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+<!--     <ion-nav-bar class="bar-stable">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+    </ion-nav-bar> -->
+    <ion-nav-view></ion-nav-view>
+
+    <!-- build:js({client,node_modules}) app/vendor.js -->
+      <!-- bower:js -->
+      <script src="bower_components/angular/angular.js"></script>
+      <script src="bower_components/angular-animate/angular-animate.js"></script>
+      <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+      <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+      <script src="bower_components/ionic/release/js/ionic.js"></script>
+      <script src="bower_components/ionic/release/js/ionic-angular.js"></script>
+      <script src="bower_components/ionic-filter-bar/dist/ionic.filter.bar.js"></script>
+      <script src="bower_components/ionic-scroller/src/ionic-scroller.min.js"></script>
+      <!-- endbower -->
+    <!-- endbuild -->
+
+        
+        <!-- build:js({.tmp,client}) app/app.js -->
+        
+        <script src="app/app.js"></script>
+          <!-- injector:js -->
+          <script src="app/alarm/alarm.controller.js"></script>
+          <script src="app/alarm/alarm.js"></script>
+          <script src="app/directive/addAnimates/addAnimates.directive.js"></script>
+          <script src="app/directive/hideTabs/hideTabs.directive.js"></script>
+          <script src="app/directive/mclear/mclear.directive.js"></script>
+          <script src="app/item/item.controller.js"></script>
+          <script src="app/item/item.js"></script>
+          <script src="app/services/authHttp/authHttp.service.js"></script>
+          <script src="app/services/resources/resources.service.js"></script>
+          <script src="app/stopwatch/stopwatch.controller.js"></script>
+          <script src="app/stopwatch/stopwatch.js"></script>
+          <script src="app/timer/timer.controller.js"></script>
+          <script src="app/timer/timer.js"></script>
+          <script src="app/world/world.controller.js"></script>
+          <script src="app/world/world.js"></script>
+          <script src="components/tabs/tabs.controller.js"></script>
+          <script src="components/tabs/tabs.js"></script>
+          <!-- endinjector -->
+        <!-- endbuild -->
+</body>
+</html>

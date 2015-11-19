@@ -1,0 +1,54 @@
+<ion-view hide-nav-bar="true" view-title="世界时钟" class="stable-bg">
+  <ion-header-bar class="bar-stable">
+    <button class="button button-clear button-assertive" 
+    	ng-click="data.showDelete = !data.showDelete; data.showReorder = !data.showReorder; toggleHtml();"
+    	ng-bind="edit">
+    </button>
+    <h1 class="title">世界时钟</h1>
+    <button class="button button-clear button-icon button-assertive ion-ios-plus-empty"
+    	ng-click="openModal()">
+    </button>
+  </ion-header-bar>
+
+  <ion-content delegate-handle="mainScroll">
+	
+	<!-- 轮播图 -->
+	<ion-slide-box does-continue="true" auto-play="true" show-pager="true" slide-interval="3500" pager-click="pager(index)">
+		<ion-slide ng-repeat="bann in banns"><!--  | limitTo : 4 -->
+			<a href="{{bann.rout}}" title=""><img src="{{bann.img_rout}}"></a>
+		</ion-slide>
+	</ion-slide-box>
+	
+	<!-- 下拉刷新 -->
+	<ion-refresher ng-if="items.length > 0" on-refresh="doRefresh()" pulling-text="下拉刷新" pulling-icon="ion-ios-arrow-thin-down" spinner="lines">
+    </ion-refresher>
+
+    <ion-list show-delete="data.showDelete" show-reorder="data.showReorder" class="avatar-img-middle">
+
+      <ion-item ng-repeat="item in items" item="item" class="item-avatar-right" href="/world/{{item._id}}">
+	      	<img ng-src="{{item.img_rout}}" err-src="../../assets/images/3.jpg">
+	      	<h2 ng-bind-template="{{item.city}}"></h2>
+	        <p ng-bind-template="{{item.time}}"></p>
+	        <ion-delete-button class="ion-minus-circled" add-animates
+	        	ng-click="onItemDelete(item)">
+	        </ion-delete-button>
+	        <ion-option-button class="button-assertive" add-animates
+	        	ng-click="onItemDelete(item)">
+	         	删除
+	      	</ion-option-button>
+	      	<ion-reorder-button class="ion-navicon"
+	      		on-reorder="moveItem(item, $fromIndex, $toIndex)">
+	      	</ion-reorder-button>
+      </ion-item>
+
+    </ion-list>
+    <!-- 滚动加载 -->
+    <ion-infinite-scroll
+    	on-infinite="loadMore()"
+    	ng-if="moreDataCanBeLoaded()"
+    	distance="1%"
+    	immediate-check=false>
+	</ion-infinite-scroll>
+  </ion-content>
+  <ion-scroller-top animate="true" css-class="button button-clear button-stable icon ion-ios-arrow-thin-up go-top" text="顶部" offset="300"></ion-scroller-top>
+</ion-view>

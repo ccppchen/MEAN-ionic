@@ -1,0 +1,35 @@
+.button-icon .icon:before,
+.button-icon.icon:before {
+    font-size: 24px;
+}
+
+.avatar-img-middle {
+    .item-avatar-right > img:first-child,
+    .item-avatar-right .item-image,
+    .item-avatar-right .item-content > img:first-child,
+    .item-avatar-right .item-content .item-image {
+        max-width: 52px;
+        max-height: 52px;
+        top: 12px;
+    }
+}
+
+// loading spanner color
+.spinner-ios,
+.spinner-ios-small {
+    stroke: #fff;
+}
+
+// slide 
+.slider-pager .slider-pager-page {
+    color: #fff;
+    opacity: 0.3;
+}
+
+.slider-pager .slider-pager-page.active {
+    -webkit-transition: opacity 0.2s ease-in;
+    transition: opacity 0.2s ease-in;
+    color: #ef473a;
+    opacity: 1;
+}
+

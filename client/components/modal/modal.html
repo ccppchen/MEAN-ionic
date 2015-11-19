@@ -1,0 +1,26 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-table item-input-inset T-top-bar" no-tap-scroll=true>
+        <div class="button button-clear button-dark" style="font-size:12px;">选取城市</div>
+        <label class="item-input-wrapper content" m-clear>
+            <i class="icon ion-ios-search-strong placeholder-icon"></i>
+            <input type="text" placeholder="" ng-model="searchText.first_name">
+            <clear-icon></clear-icon>
+        </label>
+        <a class="button button-clear button-assertive" ng-click="closeModal()" style="font-size:14px;">取消</a>
+    </ion-header-bar>
+    <ion-content padding="false" scroll="true" delegate-handle="modalScroll" on-scroll="scrollFixed()">
+        <div ng-repeat="(letter, authors) in sorted_users" class="alpha_list list-inset-left list" ng-click="closeModal()">
+            <ion-item class="item item-divider" id="{{letter}}" auto-divider>
+                {{letter}}
+            </ion-item>
+            <ion-item ng-repeat="author in authors | filter:searchText">
+                {{author.first_name}} {{author.last_name}}
+            </ion-item>
+        </div>
+    </ion-content>
+    <div class="alpha_sidebar">
+        <a ng-repeat="letter in alphabet" ng-click="gotoList(letter)">
+            {{letter}}
+        </a>
+    </div>
+</ion-modal-view>
