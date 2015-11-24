@@ -5,7 +5,8 @@
     "ionic": "1.0.1",
     "ionic-filter-bar": "~1.1.1",
     "font-awesome": ">=4.1.0",
-    "ionic-scroller": "~0.0.4"
+    "ionic-scroller": "~0.0.4",
+    "angular-resource": "~1.4.8"
   },
   "devDependencies": {}
 }

@@ -15,6 +15,7 @@ angular.module('fullstackApp')
         resources.banns(function (params){
             $scope.banns = params;
         });
+        // $scope.banns = resources.banns();
         $scope.$on('banns.update', function(){
             resources.banns(function (params){
                 $scope.banns = params;

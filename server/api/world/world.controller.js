@@ -31,11 +31,7 @@ var World = require('./world.model');
 
 // Get list of worlds
 exports.index = function(req, res) {
-    // World.create({
-    //     city: '东京',
-    //     img_rout: '../../assets/images/1.jpg'
-    // });
-    World.find({}, null, {limit: 10, sort: {_id:1}}, function(err, data) {
+    World.find({}, null, {limit: req.query.limit, sort: {_id:1}}, function(err, data) {
         if (err) {
             return handleError(res, req)
         };

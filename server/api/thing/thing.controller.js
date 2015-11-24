@@ -14,8 +14,8 @@ var banns = require('./banns.model');
 
 // Get list of things
 exports.index = function(req, res) {
-    banns.find(function(err, data) {
+    banns.find({}, null, {limit: req.query.limit, sort: {_id:1} }, function(err, data) {
         if (err) { return handleError(res, err) };
         return res.status(200).json(data);
-    });
+    }); 
 };
