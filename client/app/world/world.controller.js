@@ -35,6 +35,10 @@ angular.module('fullstackApp')
             });
         });
 
+        // 下拉刷新
+        $scope.hasNextPage = resources.hasNextPage();
+        $scope.loadError = false;
+
         // 编辑
         $scope.edit = '编辑';
         $scope.toggleHtml = function() {
@@ -50,7 +54,6 @@ angular.module('fullstackApp')
             $scope.items.splice(fromIndex, 1);
             $scope.items.splice(toIndex, 0, item);
         }
-
         // 删除item
         $scope.onItemDelete = function(item) {
             $timeout(function() {
@@ -60,80 +63,28 @@ angular.module('fullstackApp')
 
         // 下拉刷新
         $scope.doRefresh = function() {
-            $timeout(function() {
-                $scope.items.push({
-                    id: Math.floor(Math.random() * 1000) + 4,
-                    city: '台湾',
-                    time: '今天, 台风',
-                    img_rout: '../../assets/images/2.jpg'
-                });
-                $scope.items.push({
-                    id: Math.floor(Math.random() * 1000) + 4,
-                    city: '香港',
-                    time: '今天, 暴雨',
-                    img_rout: '../../assets/images/2.jpg'
-                });
-                $scope.items.push({
-                    id: Math.floor(Math.random() * 1000) + 4,
-                    city: '钓鱼岛',
-                    time: '今天, 雨夹雪',
-                    img_rout: '../../assets/images/2.jpg'
-                });
-                $scope.items.push({
-                    id: Math.floor(Math.random() * 1000) + 4,
-                    city: '东莞',
-                    time: '今天, 阴天',
-                    img_rout: '../../assets/images/2.jpg'
-                });
-                $scope.items.push({
-                    id: Math.floor(Math.random() * 1000) + 4,
-                    city: '深圳',
-                    time: '今天, 洪涝',
-                    img_rout: '../../assets/images/2.jpg'
-                });
-
-                // stop refresh
+            resources.refresh(function (params){
+                $scope.items = params;
+                $scope.hasNextPage = true;
+                $scope.loadError = false;
                 $scope.$broadcast('scroll.refreshComplete');
-            }, 500);
+            });
+            
         }
 
         // 滚动加载
         $scope.loadMore = function() {
-            $timeout(function() {
-                $scope.items.push({
-                    id: Math.floor(Math.random() * 1000) + 4,
-                    city: '台湾',
-                    time: '16:23',
-                    img_rout: '../../assets/images/2.jpg'
-                });
-                $scope.items.push({
-                    id: Math.floor(Math.random() * 1000) + 4,
-                    city: '台湾',
-                    time: '16:23',
-                    img_rout: '../../assets/images/2.jpg'
-                });
-                $scope.items.push({
-                    id: Math.floor(Math.random() * 1000) + 4,
-                    city: '台湾',
-                    time: '16:23',
-                    img_rout: '../../assets/images/2.jpg'
-                });
-                $scope.items.push({
-                    id: Math.floor(Math.random() * 1000) + 4,
-                    city: '台湾',
-                    time: '16:23',
-                    img_rout: '../../assets/images/2.jpg'
-                });
-                $scope.items.push({
-                    id: Math.floor(Math.random() * 1000) + 4,
-                    city: '台湾',
-                    time: '16:23',
-                    img_rout: '../../assets/images/2.jpg'
-                });
-
+            resources.loadMore(function(data){
+                $scope.hasNextPage = false;
+                $scope.loadError = false;
+                $timeout(function(){
+                    $scope.hasNextPage = resources.hasNextPage();
+                }, 100);
+                $scope.items = $scope.items.concat(data);
                 // stop
                 $scope.$broadcast("scroll.infiniteScrollComplete");
-            }, 500);
+            })
+            
         }
 
         //  打开模态对话框 start

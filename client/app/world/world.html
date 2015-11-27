@@ -45,7 +45,7 @@
     <!-- 滚动加载 -->
     <ion-infinite-scroll
     	on-infinite="loadMore()"
-    	ng-if="moreDataCanBeLoaded()"
+    	ng-if="hasNextPage && !loadError"
     	distance="1%"
     	immediate-check=false>
 	</ion-infinite-scroll>

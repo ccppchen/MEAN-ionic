@@ -31,7 +31,7 @@ var World = require('./world.model');
 
 // Get list of worlds
 exports.index = function(req, res) {
-    World.find({}, null, {limit: req.query.limit, sort: {_id:1}}, function(err, data) {
+    World.find({}, null, {limit: req.query.limit, skip: (req.query.page-1)*10, sort: {time:-1}}, function(err, data) {
         if (err) {
             return handleError(res, req)
         };
