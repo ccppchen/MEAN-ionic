@@ -5,8 +5,12 @@
 module.exports = {
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://localhost/fullstack-dev'
+    uri: 'mongodb://localhost/fullstack-dev',
+    options: {
+	  	user: 'fullstack',
+	  	pass: '362531'
+	  }
   },
-
-  seedDB: true
+  
+  seedDB: false
 };
