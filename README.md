@@ -1,2 +1,6 @@
 #mean-ionic
-aaaaa
+#bower install
+#npm install
+#grunt serve
+#1
+ 
