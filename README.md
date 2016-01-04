@@ -1,4 +1,4 @@
-#mean-ionic 1111
+#mean-ionic 11111
 
 安装bower.json里面的依赖包
 ```
