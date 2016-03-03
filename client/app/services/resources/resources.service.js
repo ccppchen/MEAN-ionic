@@ -60,4 +60,20 @@ angular.module('fullstackApp')
 
     // Public API here
     return service;
-  });
+  })
+
+.factory('my', ['$http', '$q', function ($http, $q){
+  var server = {};
+  server.banns = function (){
+    var defer = $q.defer();
+    $http({method: 'GET', url: '/api/things', params: {limit:3}, cache: true, timeout: 3000}).
+      success(function(data, status, headers, config) {  
+        defer.resolve(data);  // 声明执行成功，即http请求数据成功，可以返回数据了  
+      }).  
+      error(function(data, status, headers, config) {  
+        defer.reject(data);   // 声明执行失败，即服务器返回错误  
+      });  
+      return defer.promise;
+    }
+    return server;
+}]);

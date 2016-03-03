@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('fullstackApp')
-    .controller('WorldCtrl', function($scope, $ionicScrollDelegate, $timeout, $ionicModal, $ionicLoading, $ionicSlideBoxDelegate, authHttp, $location, resources) {
+    .controller('WorldCtrl', function($scope, $ionicScrollDelegate, $timeout, $ionicModal, $ionicLoading, $ionicSlideBoxDelegate, authHttp, $location, resources, my) {
         $scope.data = {
             showDelete: false,
             showReorder: false
@@ -12,16 +12,20 @@ angular.module('fullstackApp')
             hideOnStateChange: true
         });
         //轮播图请求
-        resources.banns(function (params){
-            $scope.banns = params;
-        });
-        // $scope.banns = resources.banns();
+        // resources.banns(function (params){
+        //     $scope.banns = params;
+        // });
         $scope.$on('banns.update', function(){
             resources.banns(function (params){
                 $scope.banns = params;
             });
             $scope.$apply();
         });
+        my.banns().then(function (data){
+            $scope.banns = data;
+        }, function (error){
+            alert(error);
+        })
         // 列表数据请求
         resources.worlds(function (params){
             $scope.items = params;
