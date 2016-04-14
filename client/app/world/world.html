@@ -20,7 +20,7 @@
 	</ion-slide-box>
 	
 	<!-- 下拉刷新 -->
-	<ion-refresher ng-if="items.length > 0" on-refresh="doRefresh()" pulling-text="下拉刷新" pulling-icon="ion-ios-arrow-thin-down" spinner="lines">
+	<ion-refresher ng-if="items.length > 0" on-refresh="doRefresh()" pulling-text="下拉刷新" pulling-icon="ion-arrow-down-c" spinner="ios-small">
     </ion-refresher>
 
     <ion-list show-delete="data.showDelete" show-reorder="data.showReorder" class="avatar-img-middle">
@@ -46,8 +46,8 @@
     <ion-infinite-scroll
     	on-infinite="loadMore()"
     	ng-if="hasNextPage && !loadError"
-    	distance="1%"
-    	immediate-check=false>
+    	spinner="ios-small"
+    	distance="1%">
 	</ion-infinite-scroll>
   </ion-content>
   <ion-scroller-top animate="true" css-class="button button-clear button-stable icon ion-ios-arrow-thin-up go-top" text="顶部" offset="300"></ion-scroller-top>

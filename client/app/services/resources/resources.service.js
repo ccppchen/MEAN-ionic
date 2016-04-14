@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('fullstackApp')
-  .factory('resources', function (authHttp, HOST, $rootScope) {
+  .factory('resources', function (authHttp, HOST, $rootScope, $ionicLoading) {
     // Service logic 
     // ...
     var service = {};
@@ -51,6 +51,13 @@ angular.module('fullstackApp')
       return authHttp.get('/api/worlds', {params: {limit: 10, page: nextPage}},{cache: true}).success(function(response){
         if (response.length < 10) {
           hasNextPage = false;
+          $ionicLoading.show({
+            template: '木有了亲！',
+            noBackdrop: true,
+            duration: 2000
+          });
+        }else {
+          hasNextPage = true;
         };
         nextPage++;
         return callback(response);

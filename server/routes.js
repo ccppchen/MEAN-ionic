@@ -10,6 +10,7 @@ var path = require('path');
 module.exports = function(app) {
 
   // Insert routes below
+  app.use('/api/world-modals', require('./api/world-modal'));
   app.use('/api/items', require('./api/item'));
   app.use('/api/timers', require('./api/timer'));
   app.use('/api/stopwatchs', require('./api/stopwatch'));

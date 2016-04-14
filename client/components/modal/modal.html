@@ -6,14 +6,14 @@
             <input type="text" placeholder="" ng-model="searchText.first_name">
             <clear-icon></clear-icon>
         </label>
-        <a class="button button-clear button-assertive" ng-click="closeModal()" style="font-size:14px;">取消</a>
+        <a class="button button-clear button-assertive" ng-click="closeModal()">取消</a>
     </ion-header-bar>
     <ion-content padding="false" scroll="true" delegate-handle="modalScroll" on-scroll="scrollFixed()">
-        <div ng-repeat="(letter, authors) in sorted_users" class="alpha_list list-inset-left list" ng-click="closeModal()">
+        <div ng-repeat="(letter, authors) in sorted_users" class="alpha_list list-inset-left list" >
             <ion-item class="item item-divider" id="{{letter}}" auto-divider>
                 {{letter}}
             </ion-item>
-            <ion-item ng-repeat="author in authors | filter:searchText">
+            <ion-item ng-repeat="author in authors | filter:searchText" ng-click="pushData(author)">
                 {{author.first_name}} {{author.last_name}}
             </ion-item>
         </div>

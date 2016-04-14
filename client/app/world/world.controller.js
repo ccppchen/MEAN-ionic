@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('fullstackApp')
-    .controller('WorldCtrl', function($scope, $ionicScrollDelegate, $timeout, $ionicModal, $ionicLoading, $ionicSlideBoxDelegate, authHttp, $location, resources, my) {
+    .controller('WorldCtrl', function($scope, $rootScope, $ionicScrollDelegate, $timeout, $ionicModal, $ionicLoading, $ionicSlideBoxDelegate, authHttp, $location, resources, my) {
         $scope.data = {
             showDelete: false,
             showReorder: false
@@ -11,10 +11,6 @@ angular.module('fullstackApp')
             noBackdrop: true,
             hideOnStateChange: true
         });
-        //轮播图请求
-        // resources.banns(function (params){
-        //     $scope.banns = params;
-        // });
         $scope.$on('banns.update', function(){
             resources.banns(function (params){
                 $scope.banns = params;
@@ -28,6 +24,9 @@ angular.module('fullstackApp')
         })
         // 列表数据请求
         resources.worlds(function (params){
+            angular.forEach(params, function(data, i){
+                params[i].time = timeFormat(data.time);
+            });
             $scope.items = params;
             $timeout(function (){
                 $ionicLoading.hide();
@@ -35,6 +34,9 @@ angular.module('fullstackApp')
         });
         $scope.$on('worlds.update', function (){
             resources.worlds(function (params){
+                angular.forEach(params, function(data, i){
+                    params[i].time = timeFormat(data.time);
+                });
                 $scope.items = params;
             });
         });
@@ -60,14 +62,26 @@ angular.module('fullstackApp')
         }
         // 删除item
         $scope.onItemDelete = function(item) {
-            $timeout(function() {
-                $scope.items.splice($scope.items.indexOf(item), 1);
-            }, 220);
+            authHttp.get('/api/world-modals', {params: { _id: item._id }}).success(function(response){
+                if (response) {
+                    $rootScope.$broadcast('worlds.update');
+                }
+            }).
+            error(function(response){
+                console.log(response);
+            });
+
+            // $timeout(function() {
+            //     $scope.items.splice($scope.items.indexOf(item), 1);
+            // }, 220);
         }
 
         // 下拉刷新
         $scope.doRefresh = function() {
             resources.refresh(function (params){
+                angular.forEach(params, function(data, i){
+                    params[i].time = timeFormat(data.time);
+                });
                 $scope.items = params;
                 $scope.hasNextPage = true;
                 $scope.loadError = false;
@@ -78,13 +92,16 @@ angular.module('fullstackApp')
 
         // 滚动加载
         $scope.loadMore = function() {
-            resources.loadMore(function(data){
+            resources.loadMore(function(params){
                 $scope.hasNextPage = false;
                 $scope.loadError = false;
                 $timeout(function(){
                     $scope.hasNextPage = resources.hasNextPage();
                 }, 100);
-                $scope.items = $scope.items.concat(data);
+                angular.forEach(params, function(data, i){
+                    params[i].time = timeFormat(data.time);
+                });
+                $scope.items = $scope.items.concat(params);
                 // stop
                 $scope.$broadcast("scroll.infiniteScrollComplete");
             })
@@ -235,6 +252,66 @@ angular.module('fullstackApp')
         $scope.scrollFixed = function (){
             // var scrollPosTop = $ionicScrollDelegate.$getByHandle('modalScroll').getScrollPosition().top;
             $location.url('/');
+        }
+        function timeFormat(time){
+            var date = new Date(time),
+                curDate = new Date(),
+                year = date.getFullYear(),
+                month = date.getMonth() + 10,
+                day = date.getDate(),
+                hour = date.getHours(),
+                minute = date.getMinutes(),
+                curYear = curDate.getFullYear(),
+                curHour = curDate.getHours(),
+                timeStr;
+
+            if(year < curYear){
+                timeStr = year +'年'+ month +'月'+ day +'日 '+ hour +':'+ minute;
+            }else{
+                var pastTime = curDate - date, pastH = pastTime/3600000;
+                if(pastH > curHour){
+                    timeStr = month +'月'+ day +'日 '+ hour +':'+ minute;
+                }else if(pastH >= 1){
+                    timeStr = '今天 ' + hour +':'+ minute +'分';
+                }else{
+                    var pastM = curDate.getMinutes() - minute;
+                    if(pastM > 1){
+                        timeStr = pastM +'分钟前';
+                    }else{
+                        timeStr = '刚刚';
+                    }
+                }
+            }
+            return timeStr;
+        }
+        Date.prototype.format = function(format){
+            var o = {
+                "M+" : this.getMonth()+1, //month
+                "d+" : this.getDate(), //day
+                "h+" : this.getHours(), //hour
+                "m+" : this.getMinutes(), //minute
+                "s+" : this.getSeconds(), //second
+                "q+" : Math.floor((this.getMonth()+3)/3), //quarter
+                "S" : this.getMilliseconds() //millisecond
+            };
+            if(/(y+)/.test(format)) format=format.replace(RegExp.$1,(this.getFullYear()+"").substr(4 - RegExp.$1.length));
+            for(var k in o){
+                if(new RegExp("("+ k +")").test(format))
+                format = format.replace(RegExp.$1,RegExp.$1.length==1 ? o[k] :("00"+ o[k]).substr((""+ o[k]).length));
+            }
+            return format;
+        };
+
+        $scope.pushData = function (item){
+            $scope.closeModal();
+            authHttp.post('/api/world-modals',{params: { city: item.first_name + '-' + item.last_name, time: new Date().format("yyyy-MM-dd hh:mm:ss") }}).success(function(response){
+                if (response) {
+                    $rootScope.$broadcast('worlds.update');
+                }
+            }).
+            error(function(response){
+                console.log(response);
+            });
         }
         // slide
         $scope.pager = function(index) {
